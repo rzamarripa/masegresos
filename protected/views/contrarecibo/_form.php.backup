@@ -1,0 +1,59 @@
+
+	<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
+		'id'=>'contrarecibo-form',
+		'type'=>'horizontal',
+		'enableAjaxValidation'=>false,
+	)); ?>
+
+	<div class="alert alert-info">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+		<h4>Instrucciones</h4>	
+		Los campos con <span class="required">*</span> son requeridos.
+   </div>
+	
+	<?php echo $form->errorSummary($model); ?>
+
+		<div class="<?php echo 'control-group'; ?>">
+		<?php echo $form->labelEx($model,'numeroContrarecibo',array('class'=>'control-label')); ?>
+		<div class="controls">
+			<div class="input-prepend">
+			<span class="add-on">Texto</span><?php echo $form->textField($model,'numeroContrarecibo',array('size'=>45,'maxlength'=>45)); ?>
+			<?php echo $form->error($model,'numeroContrarecibo'); ?>
+			</div>
+		</div>
+	</div>
+	<div class="<?php echo 'control-group'; ?>">
+		<?php echo $form->labelEx($model,'fecha_f',array('class'=>'control-label')); ?>
+		<div class="controls">
+			<div class="input-prepend">
+			<span class="add-on">Fecha</span>	
+							<?php
+							if ($model->fecha_f!='') 
+								$model->fecha_f=date('d-m-Y',strtotime($model->fecha_f));
+							$this->widget('zii.widgets.jui.CJuiDatePicker', array(
+							                                       'model'=>$model,
+							                                       'attribute'=>'fecha_f',
+							                                       'value'=>$model->fecha_f,
+							                                       'language' => 'es',
+							                                       'htmlOptions' => array('readonly'=>""),
+							                                      'options'=> array(
+																		'dateFormat'=>'yy-mm-dd', 
+																		'altFormat'=>'dd-mm-yy', 
+																		'changeMonth'=>'true', 
+																		'changeYear'=>'true', 
+																		'yearRange'=>'-10:+0',
+																		'showOn'=>'both',
+																		'buttonText'=>'<i class="icon-calendar"></i>'
+																	),)); ?>			<?php echo $form->error($model,'fecha_f'); ?>
+			</div>
+		</div>
+	</div>
+	<div class="form-actions">
+		<?php $this->widget('bootstrap.widgets.TbButton', array(
+			'buttonType'=>'submit',
+			'type'=>'primary',
+			'label'=>$model->isNewRecord ? 'Crear' : 'Guardar',
+		)); ?>
+	</div>
+
+<?php $this->endWidget(); ?>
